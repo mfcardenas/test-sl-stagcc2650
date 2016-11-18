@@ -13,6 +13,15 @@ Interface en Python para dispositivos BLE (Bluetooth Low Energy) sobre Linux.
 ##### Sensor SimpleLink SensorTag CC2650
 [Información del Sensor TI](http://www.ti.com/sensortag).
 
+Probad el Tag
+-------------
+Desde vuestro móvil o tablet bajaros la app:
+https://play.google.com/store/apps/details?id=com.ti.ble.sensortag&hl=es
+
+![Execute btle.py](https://github.com/mfcardenas/test-sl-stagcc2650/blob/master/img/img-slst.png)
+
+
+
 Lectura del sensor
 ------------------
 Haced lo siguiente:
