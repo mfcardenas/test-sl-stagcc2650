@@ -13,33 +13,65 @@ Interface en Python para dispositivos BLE (Bluetooth Low Energy) sobre Linux.
 ##### Sensor SimpleLink SensorTag CC2650
 [Información del Sensor TI](http://www.ti.com/sensortag).
 
-Instalación
----------------
-Se utiliza la librería bluepy con el contenido que recomienda su autor para generar los fuentes necesarios que permitan comunicar nuestro código python con el dispositivo BLE, en este caso el SensorTag.
+Lectura del sensor
+------------------
+Haced lo siguiente:
 
-Una forma de obtener la librería bluepy es con la instalación de "pip".
-- Instale "pip" si no lo tiene en su ordenador y las librería que se indica a continuación. 
+    $ git clone https://github.com/mfcardenas/test-sl-stagcc2650.git
+    $ cd  test-sl-stagcc2650/py
+    $ python get_acceleration.py 00:00:00:00:00
+
+Esto en principio os debería recuperar datos de vuestro sensor.
+ 
+En los directorios /py y /sh tenéis los script que debéis ejecutar para recuperar datos del tag, solo necesitáis indicar la MAC del mismo. 
+Estos script requieren de ciertas "librerías" que se deberían generar en vuestro ordenador pero tal y como está este repositorio no debería ser necesario hacer esa parte porque ya los he generado y les subido aquí.
+
+Si tuvieráis que generar las librerías, os recomiento seguir los pasos que se indican en el apartado siguiente "Generación de librerías".
+
+#### Generación de librerías
+-----------------------
+
+Para generar dichas librerías seguid estos pasos:
+
+###### Instalación bluepy
+------------------
+Se utiliza la librería bluepy para "compilar" o "construir" los script o librerías necesarias que permitirán comunicar nuestro código python con el dispositivo BLE, en este caso el SensorTag.
+
+Bien se puede usar la librería bluepy por defecto, la forma de obtenerla es con "pip".
+- Instale "pip" si no lo tiene en su ordenador y la librería de bluepy. 
 
     $ sudo apt-get install python-pip libglib2.0-dev
     $ sudo pip install bluepy
-    
-- Otra forma, es generando localmente los fuentes necesarios de dicha librería.
 
+O utilizar la instalación del propio proyecto del autor:
+- instalando localmente los fuentes necesarios para dicha librería.
+
+Si no teneis git:  
     $ sudo apt-get install git
+
+Si no teneis estas dependencias (suelen ser necesarias):
     $ sudo apt-get install build-essential libglib2.0-dev
+
+Clonad el proyecto:
     $ git clone https://github.com/IanHarvey/bluepy.git
     $ cd bluepy
     $ python setup.py build
     $ python setup.py install
-    
-Cuando genere los fuentes, vea la imagen siguiente.
+
+
+###### Creación de script para conectar
+--------------------------------------------------
+Cuando instales bluepy bien con pip o bien con la misma librerría del autor, debes construir el proyecto con los fuentes para conectar con el sensor (ver la imagen siguiente)
+
+    $ git clone git clone https://github.com/IanHarvey/bluepy.git
+    $ cd bluepy/bluepy
+    $ make
 
 ![Make Project](https://github.com/mfcardenas/test-sl-stagcc2650/blob/master/img/make-install.bmp)
  
-Copie el directorio generado a este proyecto git, reemplazando en su totalidad el directorio existente con el mismo nombre.
-
-
-Una vez instalado o copiado bluepy, ejecute el script "btle.py" indicando como argumento la MAC del sensor.
+Una vez creado el proyecto con make, ejecute el script "btle.py" que se ha generado pasando como argumento la MAC del sensor.
 
 ![Execute btle.py](https://github.com/mfcardenas/test-sl-stagcc2650/blob/master/img/get-ingo-sensortag.bmp)
+
+Hecho esto volved al apartado "Lectura del sensor".
 
