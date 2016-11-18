@@ -18,12 +18,12 @@ Instalación
 Se utiliza la librería bluepy con el contenido que recomienda su autor para generar los fuentes necesarios que permitan comunicar nuestro código python con el dispositivo BLE, en este caso el SensorTag.
 
 Una forma de obtener la librería bluepy es con la instalación de "pip".
-Instale "pip" si no lo tiene en su ordenador y las librería que se indica a continuación. 
+- Instale "pip" si no lo tiene en su ordenador y las librería que se indica a continuación. 
 
     $ sudo apt-get install python-pip libglib2.0-dev
     $ sudo pip install bluepy
     
-Otra forma, es generando localmente los fuentes necesarios de dicha librería.
+- Otra forma, es generando localmente los fuentes necesarios de dicha librería.
 
     $ sudo apt-get install git
     $ sudo apt-get install build-essential libglib2.0-dev
@@ -37,7 +37,9 @@ Cuando genere los fuentes, vea la imagen siguiente.
 ![Make Project](https://github.com/mfcardenas/test-sl-stagcc2650/blob/master/img/make-install.bmp)
  
 Copie el directorio generado a este proyecto git, reemplazando en su totalidad el directorio existente con el mismo nombre.
-Una vez copiado, ejecute el script btle.py indicando como argumento la MAC del SensorTag.
 
-![Execute btle.py](https://github.com/mfcardenas/test-sl-stagcc2650/blob/master/img/make-install.bmp)
+
+Una vez instalado o copiado bluepy, ejecute el script "btle.py" indicando como argumento la MAC del sensor.
+
+![Execute btle.py](https://github.com/mfcardenas/test-sl-stagcc2650/blob/master/img/get-ingo-sensortag.bmp)
 
