@@ -33,7 +33,7 @@ Si tuvieráis que generar las librerías, os recomiento seguir los pasos que se 
 
 Para generar dichas librerías seguid estos pasos:
 
-###### Instalación bluepy
+##### Instalación bluepy
 ------------------
 Se utiliza la librería bluepy para "compilar" o "construir" los script o librerías necesarias que permitirán comunicar nuestro código python con el dispositivo BLE, en este caso el SensorTag.
 
@@ -59,7 +59,7 @@ Clonad el proyecto:
     $ python setup.py install
 
 
-###### Creación de script para conectar
+##### Creación de script para conectar
 --------------------------------------------------
 Cuando instales bluepy bien con pip o bien con la misma librerría del autor, debes construir el proyecto con los fuentes para conectar con el sensor (ver la imagen siguiente)
 
