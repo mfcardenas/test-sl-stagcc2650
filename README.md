@@ -11,7 +11,7 @@ Interface en Python para dispositivos BLE (Bluetooth Low Energy) sobre Linux.
 ##### Python 2.7 (Recomendada), 3.4 
 
 ##### Sensor SimpleLink SensorTag CC2650
-[Información del Sensor TI](www.ti.com/sensortag).
+[Información del Sensor TI](http://www.ti.com/sensortag).
 
 Instalación
 ---------------
