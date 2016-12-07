@@ -19,8 +19,8 @@ Desde vuestro móvil o tablet bajaros la app:
 https://play.google.com/store/apps/details?id=com.ti.ble.sensortag&hl=es
 
 <img src="https://github.com/mfcardenas/test-sl-stagcc2650/blob/master/img/img-slst.png" />
-<img src="https://github.com/mfcardenas/test-sl-stagcc2650/blob/master/img/img-connect.png" />
-<img src="https://github.com/mfcardenas/test-sl-stagcc2650/blob/master/img/img-data-s.png" />
+<img src="https://github.com/mfcardenas/test-sl-stagcc2650/blob/master/img/img-connect.png" style="max-width: 22%;"/>
+<img src="https://github.com/mfcardenas/test-sl-stagcc2650/blob/master/img/img-data-s.png" style="max-width: 22%;"/>
 
 
 Quedaros con la MAC del sensor, cuando os conectéis por Bluetooth la podreís ver (Tenerla siempre a mano).
