@@ -106,7 +106,7 @@ class Service:
             self.chars = self.peripheral.getCharacteristics(self.hndStart, self.hndEnd)
         if forUUID is not None:
             u = UUID(forUUID)
-            return [ch for ch in self.chars if ch.uuid==u]
+            return [ch for ch in self.chars if ch.uuid == u]
         return self.chars
 
     def __str__(self):
@@ -689,7 +689,7 @@ if __name__ == '__main__':
                 chName = AssignedNumbers.getCommonName(ch.uuid)
                 if (ch.supportsRead()):
                     try:
-                        print("    ->", repr(ch.read()))
+                        print("    ->", repr(ch.read))
                     except BTLEException as e:
                         print("    ->", e)
 

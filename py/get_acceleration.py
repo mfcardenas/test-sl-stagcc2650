@@ -69,7 +69,7 @@ else:
         logging.info("Reading values")
         ch = p.getCharacteristics(uuid=data_uuid)[0]
         for i in range(0, 50000):
-            rawVals = ch.read()
+            rawVals = ch.read
             print "Raw:",
             for rawVal in rawVals:
                 temp = ord(rawVal)

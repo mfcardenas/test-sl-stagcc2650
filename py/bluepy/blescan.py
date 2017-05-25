@@ -34,7 +34,7 @@ def dump_services(dev):
             props = c.propertiesToString()
             h = c.getHandle()
             if 'READ' in props:
-                val = c.read()
+                val = c.read
                 if c.uuid == btle.AssignedNumbers.device_name:
                     string = ANSI_CYAN + '\'' + val.decode('utf-8') + '\'' + ANSI_OFF
                 elif c.uuid == btle.AssignedNumbers.device_information:

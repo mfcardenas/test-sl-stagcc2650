@@ -45,7 +45,7 @@ else:
         print "Info, reading values!"
         ch = p.getCharacteristics(uuid=data_uuid)[0]
 
-        rawVals = ch.read()
+        rawVals = ch.read
         rawVal = (ord(rawVals[1]) << 8) + ord(rawVals[0])
 
         # object temp and ambient temp are calculated as shown below

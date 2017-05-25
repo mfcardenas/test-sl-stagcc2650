@@ -55,7 +55,7 @@ else:
         # the Android app reports about 12 to 13 hPa lower.
 
         for i in range(0, 9):
-            rawVals = ch.read()
+            rawVals = ch.read
             print "Raw:",
             for rawVal in rawVals:
                 temp = ord(rawVal)

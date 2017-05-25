@@ -49,7 +49,7 @@ else:
         # object(MSB), ambient(LSB) and ambient(MSB).
         # Python unpack using "<" which denotes little-endian format
         # and "hh" which denotes 2 unsigned short (2 byte/16 bit) values.
-        rawVals = ch.read()
+        rawVals = ch.read
         # (rawVobj, rawTamb) = struct.unpack('<HH', rawVals)
         rawVobj = (ord(rawVals[1]) << 8) + ord(rawVals[0])
         rawTamb = (ord(rawVals[3]) << 8) + ord(rawVals[2])

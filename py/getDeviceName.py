@@ -16,7 +16,7 @@ p = Peripheral(sys.argv[1])
 try:
     ch = p.getCharacteristics(uuid=temp_uuid)[0]
     if (ch.supportsRead()):
-        print ch.read()
+        print ch.read
 
 finally:
     p.disconnect()

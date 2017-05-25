@@ -61,7 +61,7 @@ else:
         print "Info, reading values!"
         ch = p.getCharacteristics(uuid=data_uuid)[0]
         for i in range(0, 1):
-            rawVals = ch.read()
+            rawVals = ch.read
             print "Raw:",
             for rawVal in rawVals:
                 temp = ord(rawVal)

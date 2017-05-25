@@ -25,14 +25,14 @@ class SensorBase:
         if self.service is None:
             self.service = self.periph.getServiceByUUID(self.svcUUID)
         if self.ctrl is None:
-            self.ctrl = self.service.getCharacteristics(self.ctrlUUID) [0]
+            self.ctrl = self.service.getCharacteristics(self.ctrlUUID)[0]
         if self.data is None:
-            self.data = self.service.getCharacteristics(self.dataUUID) [0]
+            self.data = self.service.getCharacteristics(self.dataUUID)[0]
         if self.sensorOn is not None:
             self.ctrl.write(self.sensorOn,withResponse=True)
 
     def read(self):
-        return self.data.read()
+        return self.data.read
 
     def disable(self):
         if self.ctrl is not None:
@@ -62,7 +62,7 @@ class IRTemperatureSensor(SensorBase):
         '''Returns (ambient_temp, target_temp) in degC'''
 
         # See http://processors.wiki.ti.com/index.php/SensorTag_User_Guide#IR_Temperature_Sensor
-        (rawVobj, rawTamb) = struct.unpack('<hh', self.data.read())
+        (rawVobj, rawTamb) = struct.unpack('<hh', self.data.read)
         tAmb = rawTamb / 128.0
         Vobj = 1.5625e-7 * rawVobj
 
@@ -71,7 +71,7 @@ class IRTemperatureSensor(SensorBase):
         Vos = calcPoly(self.Bpoly, tDie-self.tRef)
         fObj = calcPoly(self.Cpoly, Vobj-Vos)
 
-        tObj = math.pow( math.pow(tDie,4.0) + (fObj/S), 0.25 )
+        tObj = math.pow( math.pow(tDie, 4.0) + (fObj/S), 0.25)
         return (tAmb, tObj - self.zeroC)
 
 
@@ -80,17 +80,17 @@ class IRTemperatureSensorTMP007(SensorBase):
     dataUUID = _TI_UUID(0xAA01)
     ctrlUUID = _TI_UUID(0xAA02)
 
-    SCALE_LSB = 0.03125;
+    SCALE_LSB = 0.03125
  
     def __init__(self, periph):
         SensorBase.__init__(self, periph)
 
     def read(self):
-        '''Returns (ambient_temp, target_temp) in degC'''
+        """ Returns (ambient_temp, target_temp) in degC """
         # http://processors.wiki.ti.com/index.php/CC2650_SensorTag_User's_Guide?keyMatch=CC2650&tisearch=Search-EN
-        (rawTobj, rawTamb) = struct.unpack('<hh', self.data.read())
-        tObj = (rawTobj >> 2) * self.SCALE_LSB;
-        tAmb = (rawTamb >> 2) * self.SCALE_LSB;
+        (rawTobj, rawTamb) = struct.unpack('<hh', self.data.read)
+        tObj = (rawTobj >> 2) * self.SCALE_LSB
+        tAmb = (rawTamb >> 2) * self.SCALE_LSB
         return (tAmb, tObj)
 
 class AccelerometerSensor(SensorBase):
@@ -102,9 +102,9 @@ class AccelerometerSensor(SensorBase):
         SensorBase.__init__(self, periph)
 
     def read(self):
-        '''Returns (x_accel, y_accel, z_accel) in units of g'''
-        x_y_z = struct.unpack('bbb', self.data.read())
-        return tuple([ (val/64.0) for val in x_y_z ])
+        """Returns (x_accel, y_accel, z_accel) in units of g"""
+        x_y_z = struct.unpack('bbb', self.data.read)
+        return tuple([(val/64.0) for val in x_y_z])
 
 class MovementSensorMPU9250(SensorBase):
     svcUUID  = _TI_UUID(0xAA80)
@@ -126,14 +126,14 @@ class MovementSensorMPU9250(SensorBase):
     def enable(self, bits):
         SensorBase.enable(self)
         self.ctrlBits |= bits
-        self.ctrl.write( struct.pack("<H", self.ctrlBits) )
+        self.ctrl.write(struct.pack("<H", self.ctrlBits))
 
     def disable(self, bits):
         self.ctrlBits &= ~bits
-        self.ctrl.write( struct.pack("<H", self.ctrlBits) )
+        self.ctrl.write(struct.pack("<H", self.ctrlBits))
 
     def rawRead(self):
-        dval = self.data.read()
+        dval = self.data.read
         return struct.unpack("<hhhhhhhhh", dval)
 
 class AccelerometerSensorMPU9250:
@@ -149,9 +149,9 @@ class AccelerometerSensorMPU9250:
         self.sensor.disable(self.bits)
 
     def read(self):
-        '''Returns (x_accel, y_accel, z_accel) in units of g'''
+        """Returns (x_accel, y_accel, z_accel) in units of g"""
         rawVals = self.sensor.rawRead()[3:6]
-        return tuple([ v*self.scale for v in rawVals ])
+        return tuple([v*self.scale for v in rawVals])
 
 
 
@@ -164,8 +164,8 @@ class HumiditySensor(SensorBase):
         SensorBase.__init__(self, periph)
 
     def read(self):
-        '''Returns (ambient_temp, rel_humidity)'''
-        (rawT, rawH) = struct.unpack('<HH', self.data.read())
+        """Returns (ambient_temp, rel_humidity)"""
+        (rawT, rawH) = struct.unpack('<HH', self.data.read)
         temp = -46.85 + 175.72 * (rawT / 65536.0)
         RH = -6.0 + 125.0 * ((rawH & 0xFFFC)/65536.0)
         return (temp, RH)
@@ -178,9 +178,10 @@ class HumiditySensorHDC1000(SensorBase):
     def __init__(self, periph):
         SensorBase.__init__(self, periph)
 
+    @property
     def read(self):
-        '''Returns (ambient_temp, rel_humidity)'''
-        (rawT, rawH) = struct.unpack('<HH', self.data.read())
+        """Returns (ambient_temp, rel_humidity)"""          LOGFILE="/var/log/${NAME}.log"
+        (rawT, rawH) = struct.unpack('<HH', self.data.read)
         temp = -40.0 + 165.0 * (rawT / 65536.0)
         RH = 100.0 * (rawH/65536.0)
         return (temp, RH)
@@ -195,7 +196,7 @@ class MagnetometerSensor(SensorBase):
 
     def read(self):
         '''Returns (x, y, z) in uT units'''
-        x_y_z = struct.unpack('<hhh', self.data.read())
+        x_y_z = struct.unpack('<hhh', self.data.read)
         return tuple([ 1000.0 * (v/32768.0) for v in x_y_z ])
         # Revisit - some absolute calibration is needed
 
@@ -232,7 +233,7 @@ class BarometerSensor(SensorBase):
 
         # Read calibration data
         self.ctrl.write( struct.pack("B", 0x02), True )
-        (c1,c2,c3,c4,c5,c6,c7,c8) = struct.unpack("<HHHHhhhh", self.calChr.read())
+        (c1,c2,c3,c4,c5,c6,c7,c8) = struct.unpack("<HHHHhhhh", self.calChr.read)
         self.c1_s = c1/float(1 << 24)
         self.c2_s = c2/float(1 << 10)
         self.sensPoly = [ c3/1.0, c4/float(1 << 17), c5/float(1<<34) ]
@@ -242,7 +243,7 @@ class BarometerSensor(SensorBase):
 
     def read(self):
         '''Returns (ambient_temp, pressure_millibars)'''
-        (rawT, rawP) = struct.unpack('<hH', self.data.read())
+        (rawT, rawP) = struct.unpack('<hH', self.data.read)
         temp = (self.c1_s * rawT) + self.c2_s
         sens = calcPoly( self.sensPoly, float(rawT) )
         offs = calcPoly( self.offsPoly, float(rawT) )
@@ -258,23 +259,23 @@ class BarometerSensorBMP280(SensorBase):
         SensorBase.__init__(self, periph)
 
     def read(self):
-        (tL,tM,tH,pL,pM,pH) = struct.unpack('<BBBBBB', self.data.read())
+        (tL,tM,tH,pL,pM,pH) = struct.unpack('<BBBBBB', self.data.read)
         temp = (tH*65536 + tM*256 + tL) / 100.0
         press = (pH*65536 + pM*256 + pL) / 100.0
         return (temp, press)
 
 class GyroscopeSensor(SensorBase):
-    svcUUID  = _TI_UUID(0xAA50)
+    svcUUID = _TI_UUID(0xAA50)
     dataUUID = _TI_UUID(0xAA51)
     ctrlUUID = _TI_UUID(0xAA52)
-    sensorOn = struct.pack("B",0x07)
+    sensorOn = struct.pack("B", 0x07)
 
     def __init__(self, periph):
        SensorBase.__init__(self, periph)
 
     def read(self):
         '''Returns (x,y,z) rate in deg/sec'''
-        x_y_z = struct.unpack('<hhh', self.data.read())
+        x_y_z = struct.unpack('<hhh', self.data.read)
         return tuple([ 250.0 * (v/32768.0) for v in x_y_z ])
 
 class GyroscopeSensorMPU9250:
@@ -321,22 +322,22 @@ class OpticalSensorOPT3001(SensorBase):
 
     def read(self):
         '''Returns value in lux'''
-        raw = struct.unpack('<h', self.data.read()) [0]
+        raw = struct.unpack('<h', self.data.read) [0]
         m = raw & 0xFFF;
         e = (raw & 0xF000) >> 12;
         return 0.01 * (m << e)
 
 class SensorTag(Peripheral):
-    def __init__(self,addr,version=AUTODETECT):
-        Peripheral.__init__(self,addr)
-        if version==AUTODETECT:
+    def __init__(self, addr, version=AUTODETECT):
+        Peripheral.__init__(self, addr)
+        if version == AUTODETECT:
             svcs = self.discoverServices()
             if _TI_UUID(0xAA70) in svcs:
                 version = SENSORTAG_2650
             else:
                 version = SENSORTAG_V1
 
-        if version==SENSORTAG_V1:
+        if version == SENSORTAG_V1:
             self.IRtemperature = IRTemperatureSensor(self)
             self.accelerometer = AccelerometerSensor(self)
             self.humidity = HumiditySensor(self)
@@ -345,7 +346,7 @@ class SensorTag(Peripheral):
             self.gyroscope = GyroscopeSensor(self)
             self.keypress = KeypressSensor(self)
             self.lightmeter = None
-        elif version==SENSORTAG_2650:
+        elif version == SENSORTAG_2650:
             self._mpu9250 = MovementSensorMPU9250(self)
             self.IRtemperature = IRTemperatureSensorTMP007(self)
             self.accelerometer = AccelerometerSensorMPU9250(self._mpu9250)
@@ -446,7 +447,7 @@ def main():
        if arg.temperature or arg.all:
            print('Temp: ', tag.IRtemperature.read())
        if arg.humidity or arg.all:
-           print("Humidity: ", tag.humidity.read())
+           print("Humidity: ", tag.humidity.read)
        if arg.barometer or arg.all:
            print("Barometer: ", tag.barometer.read())
        if arg.accelerometer or arg.all:

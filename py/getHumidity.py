@@ -49,7 +49,7 @@ else:
         # object(MSB), ambient(LSB) and ambient(MSB).
         # Python unpack using "<" which denotes little-endian format
         # and "hh" which denotes 2 unsigned short (2 byte/16 bit) values.
-        rawVals = ch.read()
+        rawVals = ch.read
         # (tempVal, humidVal) = struct.unpack('<HH', ch.read())
         tempVal = (ord(rawVals[1]) << 8) + ord(rawVals[0])
         humidVal = (ord(rawVals[3]) << 8) + ord(rawVals[2])
